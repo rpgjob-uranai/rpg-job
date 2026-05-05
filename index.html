@@ -4,8 +4,8 @@
   <link rel="icon" href="fa.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RPGジョブ占い｜あなたのジョブを診断しよう！</title>
-<meta name="description" content="生年月日から、あなたのRPGジョブがわかる！勇者・魔法使い・魔王など16タイプ。自己理解の新しい体験。">
+<title>RPGジョブ占い｜あなたのジョブを診断しよう</title>
+<meta name="description" content="生年月日から、あなたのRPGジョブがわかる！十干×星座属性で40パターン。自己理解の新しい体験。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -39,13 +39,17 @@ body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',
 .res-wrap { display:none; animation:pop .4s cubic-bezier(.34,1.56,.64,1); }
 @keyframes pop { from{opacity:0;transform:scale(.85) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
 .res-card { background:var(--white); border-radius:var(--r); padding:30px 22px 26px; margin-bottom:14px; text-align:center; border:2.5px solid; box-shadow:0 5px 0; }
-.res-lbl { display:inline-block; font-size:10px; font-weight:800; letter-spacing:.14em; padding:4px 14px; border-radius:20px; margin-bottom:14px; }
+.res-lbl { display:inline-block; font-size:10px; font-weight:800; letter-spacing:.14em; padding:4px 14px; border-radius:20px; margin-bottom:10px; }
+.elem-badge { display:inline-block; font-size:12px; font-weight:800; padding:5px 16px; border-radius:20px; margin-bottom:14px; }
 .res-chara { width:160px; height:160px; object-fit:contain; margin:0 auto 12px; display:block; filter:drop-shadow(0 4px 12px rgba(0,0,0,.15)); }
 .res-chara-fallback { font-size:72px; display:block; margin:0 auto 12px; line-height:1; }
-.res-nm { font-size:36px; font-weight:800; margin-bottom:8px; letter-spacing:-.01em; }
+.res-nm { font-size:34px; font-weight:800; margin-bottom:6px; letter-spacing:-.01em; }
+.res-catch { font-size:14px; font-weight:800; margin-bottom:8px; line-height:1.5; }
 .res-tg { font-size:13px; color:var(--text-m); font-weight:500; line-height:1.6; margin-bottom:18px; }
 .res-hr { height:2.5px; border-radius:2px; margin:0 auto 18px; width:40px; }
-.res-dc { font-size:14px; color:var(--text); line-height:1.9; text-align:left; font-weight:500; margin-bottom:18px; background:var(--bg); border-radius:14px; padding:14px; }
+.res-section { margin-bottom:14px; text-align:left; }
+.res-section-ttl { font-size:11px; font-weight:800; color:var(--text-m); letter-spacing:.08em; margin-bottom:7px; }
+.res-dc { font-size:14px; color:var(--text); line-height:1.9; font-weight:500; background:var(--bg); border-radius:14px; padding:14px; }
 .traits { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:22px; }
 .trait { font-size:12px; font-weight:700; padding:5px 13px; border-radius:20px; }
 .cta { background:#f5f0ff; border:2px solid #c4b5fd; border-radius:18px; padding:20px; text-align:center; }
@@ -59,21 +63,19 @@ body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',
   .wrap{padding:28px 12px 60px;}
   .fg{grid-template-columns:1fr 1fr;}
   .fg .fgr:first-child{grid-column:1/-1;}
-  .res-chara{width:130px;height:130px;} .res-nm{font-size:28px;}
+  .res-chara{width:130px;height:130px;} .res-nm{font-size:26px;}
 }
 </style>
 </head>
 <body>
 <div class="deco"></div>
 <div class="wrap">
-
   <div class="hdr">
     <div class="badge">✨ RPG JOB FORTUNE ✨</div>
     <h1>RPGジョブ<br><em>占い</em></h1>
-    <div class="sparks">⚔️ 🔮 👑 😈 🧚</div>
+    <div class="sparks">⚔️ 🔮 👑 💃 🧚</div>
     <p>生年月日から、あなたの<br>RPGジョブがわかる！</p>
   </div>
-
   <div class="card">
     <div class="card-ttl">🎂 生年月日を入れてね</div>
     <div class="fg">
@@ -81,19 +83,27 @@ body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',
       <div class="fgr"><label>MONTH 月</label><select id="mo"><option value="">月</option></select></div>
       <div class="fgr"><label>DAY 日</label><select id="dy"><option value="">日</option></select></div>
     </div>
-    <button class="btn-go" onclick="go()">⚔️ ジョブを診断する！</button>
+    <button class="btn-go" onclick="go()">⚔️ ジョブを診断する ⚔️</button>
     <div class="err" id="err">⚠️ 生年月日を全部入力してね！</div>
   </div>
-
   <div class="res-wrap" id="rw">
     <div class="res-card" id="rc">
       <div class="res-lbl" id="rl">YOUR JOB IS...</div>
+      <div class="elem-badge" id="eb"></div>
       <img class="res-chara" id="ri" src="" alt="" onerror="this.style.display='none';document.getElementById('re').style.display='block'">
       <span class="res-chara-fallback" id="re" style="display:none"></span>
       <div class="res-nm" id="rn"></div>
+      <div class="res-catch" id="rca"></div>
       <div class="res-tg" id="rt"></div>
       <div class="res-hr" id="rh"></div>
-      <div class="res-dc" id="rd"></div>
+      <div class="res-section">
+        <div class="res-section-ttl" id="job-ttl">⚔️ あなたの才能（ジョブの本質）</div>
+        <div class="res-dc" id="rd"></div>
+      </div>
+      <div class="res-section">
+        <div class="res-section-ttl" id="elem-ttl">🔥 あなたの行動スタイル（属性）</div>
+        <div class="res-dc" id="edesc"></div>
+      </div>
       <div class="traits" id="tr"></div>
       <div class="cta">
         <p>毎週日曜19:00に、あなたのジョブ専用の<br>週次運勢をnoteで公開しています！</p>
@@ -102,29 +112,60 @@ body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',
       </div>
     </div>
   </div>
-
   <div class="foot">あなたのジョブは生まれた日に刻まれた「魂の資質」✨<br>毎週の運勢はそのジョブに吹く風を伝えるもの。</div>
-
 </div>
 <script>
-const J=[null,
-{n:"勇者",img:"images/勇者.png",e:"⚔️",t:"まっすぐすぎる熱血漢。誰より先に飛び込む！",d:"正義感と責任感が人並み外れて強い。「自分がやらなければ」という使命感で動く。逆境でこそ本領を発揮する！熱くて、一途で、カッコいい。",ts:["行動力","一途","使命感","熱血"],c:"#ef4444",cl:"#fee2e2",cs:"#dc2626",tb:"rgba(239,68,68,.1)",tc:"#dc2626"},
-{n:"魔法使い",img:"images/魔法使い.png",e:"🔮",t:"天才肌の変わり者。頭の中はいつも不思議な世界",d:"知的好奇心が行動原理。「面白いかどうか」で判断する。誰も気づかない角度から物事を見る洞察力と圧倒的な専門性が武器！",ts:["洞察力","専門性","論理的","独創的"],c:"#8b5cf6",cl:"#ede9fe",cs:"#6d28d9",tb:"rgba(139,92,246,.1)",tc:"#6d28d9"},
-{n:"賢者",img:"images/賢者.png",e:"🌟",t:"すべてを見通す老成した魂。一言が深すぎる",d:"感情的にならず、常に長期的な視点で判断する。本質を見抜く洞察力と深い知識の統合力が強み。内側には深い情熱が眠っている。",ts:["洞察力","冷静","知識","参謀"],c:"#f59e0b",cl:"#fef3c7",cs:"#d97706",tb:"rgba(245,158,11,.1)",tc:"#d97706"},
-{n:"僧侶",img:"images/僧侶.png",e:"🙏",t:"誰かのために生きることが喜び。みんなの癒し係",d:"共感力が異常に高く、相手の感情を自分のことのように感じる。チームの空気を整える調整力と温かさが強み。でも自分のことも大切に！",ts:["共感力","優しさ","調整力","献身"],c:"#10b981",cl:"#d1fae5",cs:"#059669",tb:"rgba(16,185,129,.1)",tc:"#059669"},
-{n:"忍者",img:"images/忍者.png",e:"🌑",t:"全部わかってるけど、あえて言わない観察者",d:"誰よりも場の空気を読んでいる。状況判断の速さと秘密を守る圧倒的な信頼性が強み。信頼した相手にだけ本当の顔を見せる。",ts:["観察力","信頼性","冷静","忠義"],c:"#374151",cl:"#f3f4f6",cs:"#1f2937",tb:"rgba(55,65,81,.1)",tc:"#374151"},
-{n:"アーチャー",img:"images/アーチャー.png",e:"🏹",t:"自由を愛する一匹狼。狙ったら外さない！",d:"縛られることが苦手。目標が定まると驚くほど集中力が上がる。フットワークが軽く、自己管理能力が高い。もっと頼ってもいい！",ts:["集中力","自己管理","自立","精度"],c:"#0ea5e9",cl:"#e0f2fe",cs:"#0284c7",tb:"rgba(14,165,233,.1)",tc:"#0284c7"},
-{n:"商人",img:"images/商人.png",e:"💰",t:"チャンスを嗅ぎつける天才。人の縁がお金になる！",d:"人が好きで、人を喜ばせることが得意。自然と人脈が広がり、トレンドを読む先見性とピンチをビジネスに変える発想力が強み！",ts:["交渉力","先見性","人脈","話術"],c:"#ca8a04",cl:"#fef9c3",cs:"#92400e",tb:"rgba(202,138,4,.12)",tc:"#92400e"},
-{n:"学者",img:"images/学者.png",e:"📚",t:"「なぜ？」が止まらない探求者。知識量がヤバい",d:"圧倒的な情報収集・分析力と論理的で正確なコミュニケーションが強み。完璧に理解してから動くので、一度動いたら最強！",ts:["分析力","探求心","正確さ","持続力"],c:"#3b82f6",cl:"#dbeafe",cs:"#2563eb",tb:"rgba(59,130,246,.1)",tc:"#1d4ed8"},
-{n:"錬金術師",img:"images/錬金術師.png",e:"⚗️",t:"ゼロからイチを生む創造者。発想が宇宙レベル",d:"「変換」が得意。ピンチをチャンスに変える発想力と失敗を恐れない実験精神が強み。誰も見たことのないものを作り出す！",ts:["創造性","実験精神","発明","変換力"],c:"#f97316",cl:"#ffedd5",cs:"#ea580c",tb:"rgba(249,115,22,.1)",tc:"#c2410c"},
-{n:"軍師",img:"images/軍師.png",e:"🗺️",t:"10手先を読む戦略家。勝ち筋はもう見えている",d:"常に全体像を把握し、最適な動きを考えている。長期的な戦略立案力とリスクを事前に察知する先読み力が強み。布石を打つのが天才的！",ts:["戦略","先読み","冷静","全体像"],c:"#6366f1",cl:"#e0e7ff",cs:"#4338ca",tb:"rgba(99,102,241,.1)",tc:"#3730a3"},
-{n:"王様",img:"images/王様.png",e:"👑",t:"生まれながらのカリスマ。いるだけで場が変わる",d:"場を支配する存在感と大きなビジョンを描く力が強み。本当は「ただの自分」を愛してほしいと思っている。孤独の王には温かい仲間が必要！",ts:["カリスマ","ビジョン","決断力","統率"],c:"#f59e0b",cl:"#fef3c7",cs:"#b45309",tb:"rgba(245,158,11,.15)",tc:"#92400e"},
-{n:"踊り子",img:"images/踊り子.png",e:"💃",t:"魅せることで世界を変える。存在が華やかすぎる",d:"感情が豊かで、場の空気を瞬時に変える表現力が強み。「見られたい」の裏に「認めてほしい」という切実な願いがある。",ts:["表現力","感性","情熱","存在感"],c:"#ec4899",cl:"#fce7f3",cs:"#db2777",tb:"rgba(236,72,153,.1)",tc:"#9d174d"},
-{n:"大道芸人",img:"images/大道芸人.png",e:"🎪",t:"笑いの裏に哲学を隠す。ムードメーカーの孤独",d:"場を盛り上げ、笑いをとることが得意。ユーモアの裏にある深い洞察力が強み。本当に好きな相手の前ではぎこちなくなる。",ts:["ユーモア","柔軟性","洞察力","自由"],c:"#f97316",cl:"#fff7ed",cs:"#c2410c",tb:"rgba(249,115,22,.12)",tc:"#9a3412"},
-{n:"巫女",img:"images/巫女.png",e:"⛩️",t:"見えないものが見える。静かなる感応者",d:"直感と第六感が鋭い。揺るがない内的な軸と人の本音を見抜く力が強み。感じすぎて疲れやすいけど、その感受性こそが最大の才能！",ts:["直感","感受性","洞察","内的軸"],c:"#ef4444",cl:"#fef2f2",cs:"#b91c1c",tb:"rgba(239,68,68,.1)",tc:"#991b1b"},
-{n:"妖精",img:"images/妖精.png",e:"🧚",t:"この世のルールを知らない自由な存在。奇跡を起こす",d:"常識に縛られない発想と無邪気な行動力が強み。大人たちが諦めていることに平気で挑戦する。その純粋さが誰かの奇跡になる！",ts:["自由","ひらめき","純粋","チャレンジ"],c:"#10b981",cl:"#ecfdf5",cs:"#047857",tb:"rgba(16,185,129,.1)",tc:"#065f46"},
-{n:"魔王",img:"images/魔王.png",e:"😈",t:"圧倒的なカリスマの孤独。悪役には理由がある",d:"圧倒的な存在感と目標達成への執念が強み。強さの裏に、誰かに寄り添ってほしいという切実な願いが隠れている。愛した相手には絶対的な忠誠を誓う。",ts:["カリスマ","執念","洞察力","孤高"],c:"#7c3aed",cl:"#ede9fe",cs:"#5b21b6",tb:"rgba(124,58,237,.12)",tc:"#4c1d95"}
-];
+const JOBS={
+  king:{n:"王様",e:"👑",t:"生まれながらのカリスマ。いるだけで場が変わる",d:"場を支配する存在感と大きなビジョンを描く力が強み。本当の「ただの自分」を愛してほしいと思っている。孤独の王には温かい仲間が必要。",ts:["カリスマ","ビジョン","決断力","統率"],c:"#f59e0b",cl:"#fef3c7",cs:"#b45309",tb:"rgba(245,158,11,.15)",tc:"#92400e"},
+  miko:{n:"巫女",e:"⛩️",t:"見えないものが見える。静かなる感応者",d:"直感と第六感が鋭く、揺るがない精神的軸と人の本音を見抜く力が強み。感じすぎて疲れやすいけど、その感受性こそが最大の才能。",ts:["直感","感受性","洞察","精神軸"],c:"#ef4444",cl:"#fef2f2",cs:"#b91c1c",tb:"rgba(239,68,68,.1)",tc:"#991b1b"},
+  hero:{n:"勇者",e:"⚔️",t:"まっすぐすぎる熱血漢。誰より先に飛び込む",d:"正義感と責任感が人並み外れて強く「やらなければ」という使命感で動く。逆境こそ本領を発揮する。熱くて、一途で、カッコいい。",ts:["行動力","一途","使命感","熱血"],c:"#ef4444",cl:"#fee2e2",cs:"#dc2626",tb:"rgba(239,68,68,.1)",tc:"#dc2626"},
+  dancer:{n:"踊り子",e:"💃",t:"魅せることで世界を変える。存在が華やかすぎる",d:"感情が豊かで、場の空気を瞬時に変える表現力が強み。「見られたい」裏に「認めてほしい」という切実な願いがある。",ts:["表現力","感性","情熱","存在感"],c:"#ec4899",cl:"#fce7f3",cs:"#db2777",tb:"rgba(236,72,153,.1)",tc:"#9d174d"},
+  strategist:{n:"軍師",e:"🗺️",t:"10手先を読む戦略家。勝ち筋はもう見えている",d:"常に全体像を把握し、最適な動きを考えている。長期的な戦略立案力とリスクを事前に察知する先読み力が強み。布石を打つのが天才的。",ts:["戦略","先読み","冷静","全体像"],c:"#6366f1",cl:"#e0e7ff",cs:"#4338ca",tb:"rgba(99,102,241,.1)",tc:"#3730a3"},
+  scholar:{n:"学者",e:"📚",t:"「なぜ？」が止まらない探求者。知識量がヤバい",d:"圧倒的な情報収集・分析力と論理的で正確なコミュニケーションが強み。完璧に理解してから動くので、一度動いたら最強。",ts:["分析力","探求心","正確さ","持続力"],c:"#3b82f6",cl:"#dbeafe",cs:"#2563eb",tb:"rgba(59,130,246,.1)",tc:"#1d4ed8"},
+  ninja:{n:"忍者",e:"🌑",t:"全部わかってるけど、あえて言わない察し者",d:"誰よりも場の空気を読んでいる。状況判断の速さと秘密を守る圧倒的な信頼性が強み。信頼した相手にだけ本当の顔を見せる。",ts:["観察力","信頼性","冷静","忠義"],c:"#374151",cl:"#f3f4f6",cs:"#1f2937",tb:"rgba(55,65,81,.1)",tc:"#374151"},
+  archer:{n:"アーチャー",e:"🏹",t:"自由を愛する一匹狼。狙ったら外さない",d:"縛られることが苦手。目標が定まると驚くほど集中力が上がる。フットワークが軽く、自己管理の力が高い。もっと頼ってもいい。",ts:["集中力","自己管理","自由","精度"],c:"#0ea5e9",cl:"#e0f2fe",cs:"#0284c7",tb:"rgba(14,165,233,.1)",tc:"#0284c7"},
+  merchant:{n:"商人",e:"💰",t:"チャンスを嗅ぎつける天才。人の縁がお金になる！",d:"人が好きで、人を喜ばせることが得意。自然と人脈が広がり、トレンドを読む先見性とピンチをビジネスに変える発想力が強み。",ts:["交渉力","先見性","人脈","話術"],c:"#ca8a04",cl:"#fef9c3",cs:"#92400e",tb:"rgba(202,138,4,.12)",tc:"#92400e"},
+  alchemist:{n:"錬金術師",e:"⚗️",t:"ゼロからイチを生む創造者。発想が宇宙レベル",d:"「変換」が得意。ピンチをチャンスに変える発想力と失敗を恐れない実験精神が強み。誰も見たことのないものを作り出す！",ts:["創造性","実験精神","発想","変換力"],c:"#f97316",cl:"#ffedd5",cs:"#ea580c",tb:"rgba(249,115,22,.1)",tc:"#c2410c"}
+};
+
+const ELEMS={
+  fire:{n:"火",icon:"🔥",label:"🔥 火属性（FIRE）",desc:"直感と情熱で動く開拓者タイプ。スピードとリスクテイクを恐れず、周囲に火をつけるリーダーシップがある。ゼロから一を生み出す力が武器。（牡羊座・獅子座・射手座）",color:"#ef4444",bg:"#fee2e2"},
+  earth:{n:"地",icon:"🌍",label:"🌍 地属性（EARTH）",desc:"現実を形にする具現化タイプ。計画性・継続力・コスト管理など着実に成果を積み上げる。理想を地に足のついた形に落とし込む力がある。（牡牛座・乙女座・山羊座）",color:"#10b981",bg:"#d1fae5"},
+  air:{n:"風",icon:"💨",label:"💨 風属性（AIR）",desc:"論理と情報で動く効率化タイプ。人脈・知識・テクノロジーを使いこなしてスマートに課題を解決する。情報を循環させる力が武器。（双子座・天秤座・水瓶座）",color:"#0ea5e9",bg:"#e0f2fe"},
+  water:{n:"水",icon:"💧",label:"💧 水属性（WATER）",desc:"感情と共感で動く結合タイプ。チームの絆を深め、メンタルケアやユーザー心理の理解が得意。共感をベースにした価値創造が武器。（蟹座・蠍座・魚座）",color:"#6366f1",bg:"#e0e7ff"}
+};
+
+const CATCH={
+  king:{fire:"未来を切り拓く「進撃の指導者」",earth:"盤石な基盤を築く「不倒の統治者」",air:"変革の風を呼ぶ「革新のリーダー」",water:"民の心に寄り添う「慈愛の聖王」"},
+  miko:{fire:"祈りを情熱に変える「鼓舞の預言者」",earth:"伝統を形にする「守護の媒介者」",air:"時代の流れを読み解く「伝承の語り部」",water:"魂を癒やし繋ぐ「至高のヒーラー」"},
+  hero:{fire:"最前線で光を放つ「不屈の開拓者」",earth:"難攻不落の任務を完遂する「鋼の勇士」",air:"変幻自在に戦場を駆ける「疾風の英雄」",water:"仲間の絆を力に変える「共鳴の騎士」"},
+  dancer:{fire:"魂を揺さぶる「情熱のパフォーマー」",earth:"一分の隙もない美を体現する「完璧の表現者」",air:"トレンドを自在に操る「時代の寵児」",water:"深層心理に入り込む「魅惑の表現者」"},
+  strategist:{fire:"勝利を確信させる「勝利の演出家」",earth:"一分のミスも許さない「鉄壁の参謀」",air:"数手先を予測し最適化する「論理の賢者」",water:"士気を掌握し勝利へ導く「人心の掌握術師」"},
+  scholar:{fire:"未知の理論を追求する「探求の冒険家」",earth:"膨大なデータを資産に変える「知識の蔵相」",air:"複雑な事象をシンプルに説く「情報の翻訳者」",water:"人の成長を深く支える「叡智の教育者」"},
+  ninja:{fire:"電光石火で急所を突く「刹那の実行者」",earth:"隠密に任務を完遂する「確実なる影」",air:"情報の海を自在に泳ぐ「インテリジェンス・スパイ」",water:"相手の懐に入り込む「潜入の達人」"},
+  archer:{fire:"狙った獲物を逃さない「一撃の狙撃手」",earth:"静寂の中で真実を射抜く「至高の職人」",air:"遠距離から戦局を操作する「広域の監視者」",water:"感情の動きを見極め射止める「心理の射手」"},
+  merchant:{fire:"世界を股にかける「野心の貿易商」",earth:"富の連鎖を構築する「盤石の資産家」",air:"価値のギャップを見抜く「情報の仲介者」",water:"信頼を最大の資本とする「人脈の商い人」"},
+  alchemist:{fire:"常識を打ち破る「革命の創造主」",earth:"無から有を形にする「具現化の魔術師」",air:"複数の知恵を融合させる「情報の調合師」",water:"願いを現実に変える「奇跡の具現者」"}
+};
+
+// 生まれ年 % 10 → ジョブ（十干ベース）
+const YJ={0:'ninja',1:'archer',2:'merchant',3:'alchemist',4:'king',5:'miko',6:'hero',7:'dancer',8:'strategist',9:'scholar'};
+
+// 生まれ月・日 → 星座属性
+function getElem(m,d){
+  if((m==3&&d>=21)||(m==4&&d<=19))return'fire';
+  if((m==4&&d>=20)||(m==5&&d<=20))return'earth';
+  if((m==5&&d>=21)||(m==6&&d<=21))return'air';
+  if((m==6&&d>=22)||(m==7&&d<=22))return'water';
+  if((m==7&&d>=23)||(m==8&&d<=22))return'fire';
+  if((m==8&&d>=23)||(m==9&&d<=22))return'earth';
+  if((m==9&&d>=23)||(m==10&&d<=23))return'air';
+  if((m==10&&d>=24)||(m==11&&d<=22))return'water';
+  if((m==11&&d>=23)||(m==12&&d<=21))return'fire';
+  if((m==12&&d>=22)||(m==1&&d<=19))return'earth';
+  if((m==1&&d>=20)||(m==2&&d<=18))return'air';
+  return'water';
+}
 
 const Y=document.getElementById('yr'),M=document.getElementById('mo'),D=document.getElementById('dy');
 for(let y=2010;y>=1940;y--){const o=document.createElement('option');o.value=y;o.text=y+'年';Y.appendChild(o);}
@@ -132,33 +173,34 @@ for(let m=1;m<=12;m++){const o=document.createElement('option');o.value=m;o.text
 for(let d=1;d<=31;d++){const o=document.createElement('option');o.value=d;o.text=d+'日';D.appendChild(o);}
 
 function go(){
-  const y=Y.value,m=M.value,d=D.value;
-  const e=document.getElementById('err');
-  if(!y||!m||!d){e.style.display='block';return;}
-  e.style.display='none';
-  const s=(y+m+d).split('').map(Number).reduce((a,b)=>a+b,0);
-  const j=J[((s-1)%16)+1];
+  const y=parseInt(Y.value),m=parseInt(M.value),d=parseInt(D.value);
+  const err=document.getElementById('err');
+  if(!Y.value||!M.value||!D.value){err.style.display='block';return;}
+  err.style.display='none';
+  const jk=YJ[y%10],ek=getElem(m,d);
+  const j=JOBS[jk],el=ELEMS[ek];
+  const fullName=el.n+'の'+j.n;
   const rc=document.getElementById('rc');
   rc.style.borderColor=j.c; rc.style.boxShadow='0 5px 0 '+j.cs;
   const rl=document.getElementById('rl');
   rl.textContent='YOUR JOB IS...'; rl.style.background=j.cl; rl.style.color=j.c;
+  const eb=document.getElementById('eb');
+  eb.textContent=el.label; eb.style.background=el.bg; eb.style.color=el.color;
   const ri=document.getElementById('ri');
-  ri.src=j.img; ri.alt=j.n; ri.style.display='block';
+  ri.src='images/'+j.n+'.png'; ri.alt=j.n; ri.style.display='block';
   document.getElementById('re').textContent=j.e;
   document.getElementById('re').style.display='none';
-  const rn=document.getElementById('rn');
-  rn.textContent=j.n; rn.style.color=j.c;
+  document.getElementById('rn').textContent=fullName;
+  document.getElementById('rn').style.color=j.c;
+  document.getElementById('rca').textContent=CATCH[jk][ek];
+  document.getElementById('rca').style.color=j.c;
   document.getElementById('rt').textContent='「'+j.t+'」';
   document.getElementById('rh').style.background=j.cl;
   document.getElementById('rd').textContent=j.d;
+  document.getElementById('edesc').textContent=el.desc;
   const tr=document.getElementById('tr');
   tr.innerHTML='';
-  j.ts.forEach(t=>{
-    const s=document.createElement('span');
-    s.className='trait'; s.textContent='# '+t;
-    s.style.background=j.tb; s.style.color=j.tc;
-    tr.appendChild(s);
-  });
+  j.ts.forEach(t=>{const s=document.createElement('span');s.className='trait';s.textContent='# '+t;s.style.background=j.tb;s.style.color=j.tc;tr.appendChild(s);});
   const rw=document.getElementById('rw');
   rw.style.display='block';
   setTimeout(()=>rw.scrollIntoView({behavior:'smooth',block:'start'}),100);
