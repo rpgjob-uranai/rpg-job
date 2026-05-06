@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <link rel="icon" href="fa.png" type="image/png">
+<link rel="icon" href="fa.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RPGジョブ占い｜あなたのジョブを診断しよう</title>
-<meta name="description" content="生年月日から、あなたのRPGジョブがわかる！十干×星座属性で40パターン。自己理解の新しい体験。">
+<title>RPGジョブ占い｜生年月日で自己理解を深める</title>
+<meta name="description" content="生年月日から、あなたのRPGジョブがわかる。十干×星座属性で40パターン。占いを超えた、AIによる自己分析体験。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --purple:#8b5cf6; --purple-l:#ede9fe; --purple-d:#6d28d9;
-  --pink:#ec4899; --text:#2d1b69; --text-m:#7c6fa0;
-  --bg:#faf7ff; --white:#fff; --r:22px;
-}
-body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',sans-serif; min-height:100vh; overflow-x:hidden; }
-.deco { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
-.deco::before { content:''; position:absolute; width:500px; height:500px; border-radius:50%; background:rgba(196,181,253,.2); top:-180px; right:-180px; }
-.deco::after { content:''; position:absolute; width:350px; height:350px; border-radius:50%; background:rgba(251,207,232,.22); bottom:-120px; left:-120px; }
-.wrap { position:relative; z-index:1; max-width:500px; margin:0 auto; padding:40px 18px 80px; }
-.hdr { text-align:center; margin-bottom:28px; }
-.badge { display:inline-flex; align-items:center; gap:5px; background:var(--purple); color:#fff; font-size:10px; font-weight:800; letter-spacing:.12em; padding:5px 16px; border-radius:20px; margin-bottom:16px; }
-.hdr h1 { font-size:clamp(28px,7vw,42px); font-weight:800; line-height:1.15; margin-bottom:10px; }
-.hdr h1 em { color:var(--purple); font-style:normal; }
-.sparks { display:flex; justify-content:center; gap:6px; margin:12px 0; font-size:20px; }
-.hdr p { font-size:14px; color:var(--text-m); font-weight:500; line-height:1.7; }
-.card { background:var(--white); border-radius:var(--r); padding:26px 22px; margin-bottom:14px; border:2.5px solid #c4b5fd; box-shadow:0 4px 0 #c4b5fd; }
-.card-ttl { font-size:13px; font-weight:800; color:var(--purple); letter-spacing:.06em; margin-bottom:18px; text-align:center; }
-.fg { display:grid; grid-template-columns:2fr 1fr 1fr; gap:9px; margin-bottom:18px; }
-.fgr label { display:block; font-size:11px; font-weight:700; color:var(--text-m); letter-spacing:.05em; margin-bottom:5px; text-align:center; }
-.fgr select { width:100%; background:#f5f0ff; border:2px solid #c4b5fd; border-radius:13px; color:var(--text); font-family:'M PLUS Rounded 1c',sans-serif; font-size:15px; font-weight:700; padding:10px 6px; outline:none; appearance:none; cursor:pointer; text-align:center; transition:border-color .15s; }
-.fgr select:focus { border-color:var(--purple); }
-.btn-go { width:100%; background:var(--purple); border:none; border-radius:14px; color:#fff; font-family:'M PLUS Rounded 1c',sans-serif; font-size:17px; font-weight:800; padding:15px; cursor:pointer; letter-spacing:.04em; box-shadow:0 5px 0 var(--purple-d); transition:all .1s; position:relative; top:0; }
-.btn-go:hover { background:#7c3aed; }
-.btn-go:active { top:3px; box-shadow:0 2px 0 var(--purple-d); }
-.err { display:none; color:var(--pink); font-size:13px; font-weight:700; text-align:center; margin-top:11px; }
-.res-wrap { display:none; animation:pop .4s cubic-bezier(.34,1.56,.64,1); }
-@keyframes pop { from{opacity:0;transform:scale(.85) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.res-card { background:var(--white); border-radius:var(--r); padding:30px 22px 26px; margin-bottom:14px; text-align:center; border:2.5px solid; box-shadow:0 5px 0; }
-.res-lbl { display:inline-block; font-size:10px; font-weight:800; letter-spacing:.14em; padding:4px 14px; border-radius:20px; margin-bottom:10px; }
-.elem-badge { display:inline-block; font-size:12px; font-weight:800; padding:5px 16px; border-radius:20px; margin-bottom:14px; }
-.res-chara { width:160px; height:160px; object-fit:contain; margin:0 auto 12px; display:block; filter:drop-shadow(0 4px 12px rgba(0,0,0,.15)); }
-.res-chara-fallback { font-size:72px; display:block; margin:0 auto 12px; line-height:1; }
-.res-nm { font-size:34px; font-weight:800; margin-bottom:6px; letter-spacing:-.01em; }
-.res-catch { font-size:14px; font-weight:800; margin-bottom:8px; line-height:1.5; }
-.res-tg { font-size:13px; color:var(--text-m); font-weight:500; line-height:1.6; margin-bottom:18px; }
-.res-hr { height:2.5px; border-radius:2px; margin:0 auto 18px; width:40px; }
-.res-section { margin-bottom:14px; text-align:left; }
-.res-section-ttl { font-size:11px; font-weight:800; color:var(--text-m); letter-spacing:.08em; margin-bottom:7px; }
-.res-dc { font-size:14px; color:var(--text); line-height:1.9; font-weight:500; background:var(--bg); border-radius:14px; padding:14px; }
-.traits { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:22px; }
-.trait { font-size:12px; font-weight:700; padding:5px 13px; border-radius:20px; }
-.cta { background:#f5f0ff; border:2px solid #c4b5fd; border-radius:18px; padding:20px; text-align:center; }
-.cta p { font-size:13px; font-weight:700; color:var(--text-m); line-height:1.7; margin-bottom:14px; }
-.btn-n { display:block; background:var(--purple); color:#fff; font-family:'M PLUS Rounded 1c',sans-serif; font-size:14px; font-weight:800; padding:13px; border-radius:13px; text-decoration:none; text-align:center; box-shadow:0 4px 0 var(--purple-d); margin-bottom:9px; cursor:pointer; border:none; width:100%; letter-spacing:.03em; }
-.btn-n:hover { background:#7c3aed; }
-.btn-r { display:block; background:transparent; color:var(--purple); font-family:'M PLUS Rounded 1c',sans-serif; font-size:13px; font-weight:700; padding:11px; border-radius:13px; text-align:center; border:2px solid #c4b5fd; cursor:pointer; width:100%; }
-.btn-r:hover { border-color:var(--purple); }
-.foot { text-align:center; font-size:12px; color:var(--text-m); font-weight:500; line-height:1.8; margin-top:26px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#8b5cf6;--purple-l:#ede9fe;--purple-d:#6d28d9;--pink:#ec4899;--text:#2d1b69;--text-m:#7c6fa0;--bg:#faf7ff;--white:#fff;--r:22px}
+body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans-serif;min-height:100vh;overflow-x:hidden}
+.deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(196,181,253,.2);top:-180px;right:-180px}
+.deco::after{content:'';position:absolute;width:350px;height:350px;border-radius:50%;background:rgba(251,207,232,.22);bottom:-120px;left:-120px}
+.wrap{position:relative;z-index:1;max-width:500px;margin:0 auto;padding:40px 18px 80px}
+.hdr{text-align:center;margin-bottom:28px}
+.badge{display:inline-flex;align-items:center;gap:5px;background:var(--purple);color:#fff;font-size:10px;font-weight:800;letter-spacing:.12em;padding:5px 16px;border-radius:20px;margin-bottom:16px}
+.hdr h1{font-size:clamp(28px,7vw,42px);font-weight:800;line-height:1.15;margin-bottom:10px}
+.hdr h1 em{color:var(--purple);font-style:normal}
+.sparks{display:flex;justify-content:center;gap:6px;margin:12px 0;font-size:20px}
+.hdr p{font-size:14px;color:var(--text-m);font-weight:500;line-height:1.7}
+.card{background:var(--white);border-radius:var(--r);padding:26px 22px;margin-bottom:14px;border:2.5px solid #c4b5fd;box-shadow:0 4px 0 #c4b5fd}
+.card-ttl{font-size:13px;font-weight:800;color:var(--purple);letter-spacing:.06em;margin-bottom:18px;text-align:center}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:9px;margin-bottom:18px}
+.fgr label{display:block;font-size:11px;font-weight:700;color:var(--text-m);letter-spacing:.05em;margin-bottom:5px;text-align:center}
+.fgr select{width:100%;background:#f5f0ff;border:2px solid #c4b5fd;border-radius:13px;color:var(--text);font-family:'M PLUS Rounded 1c',sans-serif;font-size:15px;font-weight:700;padding:10px 6px;outline:none;appearance:none;cursor:pointer;text-align:center;transition:border-color .15s}
+.fgr select:focus{border-color:var(--purple)}
+.btn-go{width:100%;background:var(--purple);border:none;border-radius:14px;color:#fff;font-family:'M PLUS Rounded 1c',sans-serif;font-size:17px;font-weight:800;padding:15px;cursor:pointer;letter-spacing:.04em;box-shadow:0 5px 0 var(--purple-d);transition:all .1s;position:relative;top:0}
+.btn-go:hover{background:#7c3aed}
+.btn-go:active{top:3px;box-shadow:0 2px 0 var(--purple-d)}
+.err{display:none;color:var(--pink);font-size:13px;font-weight:700;text-align:center;margin-top:11px}
+.res-wrap{display:none;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.res-card{background:var(--white);border-radius:var(--r);padding:30px 22px 26px;margin-bottom:14px;text-align:center;border:2.5px solid;box-shadow:0 5px 0}
+.res-lbl{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.14em;padding:4px 14px;border-radius:20px;margin-bottom:10px}
+.elem-badge{display:inline-block;font-size:12px;font-weight:800;padding:5px 16px;border-radius:20px;margin-bottom:14px}
+.res-chara{width:160px;height:160px;object-fit:contain;margin:0 auto 12px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,.15))}
+.res-chara-fallback{font-size:72px;display:block;margin:0 auto 12px;line-height:1}
+.res-nm{font-size:32px;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
+.res-catch{font-size:14px;font-weight:800;margin-bottom:8px;line-height:1.5}
+.res-tg{font-size:13px;color:var(--text-m);font-weight:500;line-height:1.6;margin-bottom:18px}
+.res-hr{height:2.5px;border-radius:2px;margin:0 auto 18px;width:40px}
+.res-section{margin-bottom:14px;text-align:left}
+.res-section-ttl{font-size:11px;font-weight:800;color:var(--text-m);letter-spacing:.08em;margin-bottom:7px}
+.res-dc{font-size:14px;color:var(--text);line-height:1.9;font-weight:500;background:var(--bg);border-radius:14px;padding:14px}
+.shadow-box{font-size:13px;color:var(--text);line-height:1.9;font-weight:500;background:#fdf4ff;border:1.5px solid #e9d5ff;border-radius:14px;padding:14px;text-align:left;margin-bottom:14px}
+.shadow-box strong{color:var(--purple)}
+.rx-box{font-size:13px;color:var(--text);line-height:1.9;font-weight:500;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:14px;padding:14px;text-align:left;margin-bottom:16px}
+.rx-box strong{color:#059669}
+.traits{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:22px}
+.trait{font-size:12px;font-weight:700;padding:5px 13px;border-radius:20px}
+.cta{background:#f5f0ff;border:2px solid #c4b5fd;border-radius:18px;padding:20px;text-align:center}
+.cta p{font-size:13px;font-weight:700;color:var(--text-m);line-height:1.7;margin-bottom:14px}
+.btn-n{display:block;background:var(--purple);color:#fff;font-family:'M PLUS Rounded 1c',sans-serif;font-size:14px;font-weight:800;padding:13px;border-radius:13px;text-decoration:none;text-align:center;box-shadow:0 4px 0 var(--purple-d);margin-bottom:9px;cursor:pointer;border:none;width:100%;letter-spacing:.03em}
+.btn-n:hover{background:#7c3aed}
+.btn-r{display:block;background:transparent;color:var(--purple);font-family:'M PLUS Rounded 1c',sans-serif;font-size:13px;font-weight:700;padding:11px;border-radius:13px;text-align:center;border:2px solid #c4b5fd;cursor:pointer;width:100%}
+.btn-r:hover{border-color:var(--purple)}
+.foot{text-align:center;font-size:12px;color:var(--text-m);font-weight:500;line-height:1.8;margin-top:26px}
 @media(max-width:380px){
-  .wrap{padding:28px 12px 60px;}
-  .fg{grid-template-columns:1fr 1fr;}
-  .fg .fgr:first-child{grid-column:1/-1;}
-  .res-chara{width:130px;height:130px;} .res-nm{font-size:26px;}
+  .wrap{padding:28px 12px 60px}
+  .fg{grid-template-columns:1fr 1fr}
+  .fg .fgr:first-child{grid-column:1/-1}
+  .res-chara{width:130px;height:130px} .res-nm{font-size:26px}
 }
 </style>
 </head>
@@ -74,7 +74,7 @@ body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',
     <div class="badge">✨ RPG JOB FORTUNE ✨</div>
     <h1>RPGジョブ<br><em>占い</em></h1>
     <div class="sparks">⚔️ 🔮 👑 💃 🧚</div>
-    <p>生年月日から、あなたの<br>RPGジョブがわかる！</p>
+    <p>生年月日から、あなたの魂の設計図がわかる。<br>占いを超えた「自己理解の体験」へ。</p>
   </div>
   <div class="card">
     <div class="card-ttl">🎂 生年月日を入れてね</div>
@@ -90,68 +90,165 @@ body { background:var(--bg); color:var(--text); font-family:'M PLUS Rounded 1c',
     <div class="res-card" id="rc">
       <div class="res-lbl" id="rl">YOUR JOB IS...</div>
       <div class="elem-badge" id="eb"></div>
-      <img class="res-chara" id="ri" src="" alt="" onerror="this.style.display='none';document.getElementById('re').style.display='block'">
+      <img class="res-chara" id="ri" src="" alt="" style="display:none" onerror="this.style.display='none';document.getElementById('re').style.display='block'">
       <span class="res-chara-fallback" id="re" style="display:none"></span>
       <div class="res-nm" id="rn"></div>
       <div class="res-catch" id="rca"></div>
       <div class="res-tg" id="rt"></div>
       <div class="res-hr" id="rh"></div>
       <div class="res-section">
-        <div class="res-section-ttl" id="job-ttl">⚔️ あなたの才能（ジョブの本質）</div>
+        <div class="res-section-ttl">⚔️ あなたの才能（ジョブの本質）</div>
         <div class="res-dc" id="rd"></div>
       </div>
       <div class="res-section">
         <div class="res-section-ttl" id="elem-ttl">🔥 あなたの行動スタイル（属性）</div>
         <div class="res-dc" id="edesc"></div>
       </div>
+      <div class="res-section">
+        <div class="res-section-ttl">🌑 あなたのシャドー（成長の鍵）</div>
+        <div class="shadow-box" id="shadow"></div>
+      </div>
+      <div class="res-section">
+        <div class="res-section-ttl">💊 今週の処方箋</div>
+        <div class="rx-box" id="rx"></div>
+      </div>
       <div class="traits" id="tr"></div>
       <div class="cta">
-        <p>毎週日曜19:00に、あなたのジョブ専用の<br>週次運勢をnoteで公開しています！</p>
+        <p>毎週日曜19:00に、あなたのジョブ専用の<br>週次運勢・処方箋をnoteで公開しています！</p>
         <a class="btn-n" href="https://note.com/rpg" target="_blank">📖 週次運勢を読む（note）</a>
         <button class="btn-r" onclick="rst()">🔄 もう一度診断する</button>
       </div>
     </div>
   </div>
-  <div class="foot">あなたのジョブは生まれた日に刻まれた「魂の資質」✨<br>毎週の運勢はそのジョブに吹く風を伝えるもの。</div>
+  <div class="foot">あなたのジョブは生まれた日に刻まれた「魂の設計図」✨<br>「なぜ私はこうなんだろう」が「私はこういう設計だから」に変わる体験を。</div>
 </div>
 <script>
+// ===== ジョブデータ v2.0（NLP/心理学理論統合）=====
 const JOBS={
-  king:{n:"王様",e:"👑",t:"生まれながらのカリスマ。いるだけで場が変わる",d:"場を支配する存在感と大きなビジョンを描く力が強み。本当の「ただの自分」を愛してほしいと思っている。孤独の王には温かい仲間が必要。",ts:["カリスマ","ビジョン","決断力","統率"],c:"#f59e0b",cl:"#fef3c7",cs:"#b45309",tb:"rgba(245,158,11,.15)",tc:"#92400e"},
-  miko:{n:"巫女",e:"⛩️",t:"見えないものが見える。静かなる感応者",d:"直感と第六感が鋭く、揺るがない精神的軸と人の本音を見抜く力が強み。感じすぎて疲れやすいけど、その感受性こそが最大の才能。",ts:["直感","感受性","洞察","精神軸"],c:"#ef4444",cl:"#fef2f2",cs:"#b91c1c",tb:"rgba(239,68,68,.1)",tc:"#991b1b"},
-  hero:{n:"勇者",e:"⚔️",t:"まっすぐすぎる熱血漢。誰より先に飛び込む",d:"正義感と責任感が人並み外れて強く「やらなければ」という使命感で動く。逆境こそ本領を発揮する。熱くて、一途で、カッコいい。",ts:["行動力","一途","使命感","熱血"],c:"#ef4444",cl:"#fee2e2",cs:"#dc2626",tb:"rgba(239,68,68,.1)",tc:"#dc2626"},
-  dancer:{n:"踊り子",e:"💃",t:"魅せることで世界を変える。存在が華やかすぎる",d:"感情が豊かで、場の空気を瞬時に変える表現力が強み。「見られたい」裏に「認めてほしい」という切実な願いがある。",ts:["表現力","感性","情熱","存在感"],c:"#ec4899",cl:"#fce7f3",cs:"#db2777",tb:"rgba(236,72,153,.1)",tc:"#9d174d"},
-  strategist:{n:"軍師",e:"🗺️",t:"10手先を読む戦略家。勝ち筋はもう見えている",d:"常に全体像を把握し、最適な動きを考えている。長期的な戦略立案力とリスクを事前に察知する先読み力が強み。布石を打つのが天才的。",ts:["戦略","先読み","冷静","全体像"],c:"#6366f1",cl:"#e0e7ff",cs:"#4338ca",tb:"rgba(99,102,241,.1)",tc:"#3730a3"},
-  scholar:{n:"学者",e:"📚",t:"「なぜ？」が止まらない探求者。知識量がヤバい",d:"圧倒的な情報収集・分析力と論理的で正確なコミュニケーションが強み。完璧に理解してから動くので、一度動いたら最強。",ts:["分析力","探求心","正確さ","持続力"],c:"#3b82f6",cl:"#dbeafe",cs:"#2563eb",tb:"rgba(59,130,246,.1)",tc:"#1d4ed8"},
-  ninja:{n:"忍者",e:"🌑",t:"全部わかってるけど、あえて言わない察し者",d:"誰よりも場の空気を読んでいる。状況判断の速さと秘密を守る圧倒的な信頼性が強み。信頼した相手にだけ本当の顔を見せる。",ts:["観察力","信頼性","冷静","忠義"],c:"#374151",cl:"#f3f4f6",cs:"#1f2937",tb:"rgba(55,65,81,.1)",tc:"#374151"},
-  archer:{n:"アーチャー",e:"🏹",t:"自由を愛する一匹狼。狙ったら外さない",d:"縛られることが苦手。目標が定まると驚くほど集中力が上がる。フットワークが軽く、自己管理の力が高い。もっと頼ってもいい。",ts:["集中力","自己管理","自由","精度"],c:"#0ea5e9",cl:"#e0f2fe",cs:"#0284c7",tb:"rgba(14,165,233,.1)",tc:"#0284c7"},
-  merchant:{n:"商人",e:"💰",t:"チャンスを嗅ぎつける天才。人の縁がお金になる！",d:"人が好きで、人を喜ばせることが得意。自然と人脈が広がり、トレンドを読む先見性とピンチをビジネスに変える発想力が強み。",ts:["交渉力","先見性","人脈","話術"],c:"#ca8a04",cl:"#fef9c3",cs:"#92400e",tb:"rgba(202,138,4,.12)",tc:"#92400e"},
-  alchemist:{n:"錬金術師",e:"⚗️",t:"ゼロからイチを生む創造者。発想が宇宙レベル",d:"「変換」が得意。ピンチをチャンスに変える発想力と失敗を恐れない実験精神が強み。誰も見たことのないものを作り出す！",ts:["創造性","実験精神","発想","変換力"],c:"#f97316",cl:"#ffedd5",cs:"#ea580c",tb:"rgba(249,115,22,.1)",tc:"#c2410c"}
+  king:{
+    n:"王様",e:"👑",
+    t:"ビジョンを語ると人が動く。孤独な統治者",
+    d:"場を支配する存在感と大きなビジョンを描く力が強み。「こっちに行こう」と言った瞬間に周囲が動く、これはこのジョブだけに宿る天性の磁力だ。その裏には「本当の自分を見せられない」という静かな孤独がある。完璧な王より、人間らしい王の方が最終的に愛される。",
+    shadow:"完璧でいようとするあまり、弱さを見せることへの強い抵抗がある（屈辱の傷）。「強くあらねば」というプレッシャーを内側から課し続け、それが孤立を深める。本当は一人でいいから、本音を話せる人が欲しい。",
+    rx:"今週、信頼できる一人に「実は少し疲れた」と言ってみる。弱さを見せた瞬間に人が近づいてくる——それがこのジョブの逆説的な真実だ。",
+    ts:["カリスマ","ビジョン","決断力","統率"],c:"#f59e0b",cl:"#fef3c7",cs:"#b45309",tb:"rgba(245,158,11,.15)",tc:"#92400e"
+  },
+  miko:{
+    n:"巫女",e:"⛩️",
+    t:"見えないものが見える。静かなる感応者",
+    d:"直感と第六感が鋭く、言語化される前に場の本質を感じ取る。「なんとなくそう感じる」がほぼ正確に当たる。この感受性は訓練ではなく、生まれつきの設計だ。感じすぎて疲れやすいが、その疲れこそが「深く世界を受け取っている証拠」だと知ってほしい。",
+    shadow:"感じすぎることへの罪悪感や、「直感を信じていいのか」という自己不信がある（拒絶の傷）。論理で説明できないものを大切にする自分を、どこかで「おかしいのかも」と思っている。その感性こそが最大の才能なのに。",
+    rx:"今週、言語化できない「なんとなく」を一度だけ行動に移す。理由は後からついてくる。直感を信頼した回数が、このジョブの力を育てる。",
+    ts:["直感","感受性","洞察","精神軸"],c:"#ef4444",cl:"#fef2f2",cs:"#b91c1c",tb:"rgba(239,68,68,.1)",tc:"#991b1b"
+  },
+  hero:{
+    n:"勇者",e:"⚔️",
+    t:"まっすぐすぎる熱血漢。誰より先に飛び込む",
+    d:"正義感と責任感が人並み外れて強く「やらなければ」という使命感で動く。逆境こそ本領を発揮する。熱くて、一途で、不器用なほどまっすぐだ。「考えるより動く」は欠点ではない——それがこのジョブの設計だ。動いた先に道ができる。",
+    shadow:"不公平・不正義への怒りが強く、暴走や独善につながることがある（不正の傷）。「正しいことをしているのになぜ」という憤りを一人で抱え、燃え尽きることも多い。怒りは悪ではない。建設的な「火」に変えることが課題だ。",
+    rx:"今週、70%の完成度で動く。完璧を待つより、動いた先で修正する方がこのジョブには合っている。「とりあえず始める」が最強の呪文。",
+    ts:["行動力","一途","使命感","熱血"],c:"#ef4444",cl:"#fee2e2",cs:"#dc2626",tb:"rgba(239,68,68,.1)",tc:"#dc2626"
+  },
+  dancer:{
+    n:"踊り子",e:"💃",
+    t:"存在そのものが表現。場の空気を一瞬で変える",
+    d:"感情が豊かで、場の空気を瞬時に変える表現力が強み。「あなたがいると場が違う」——これはお世辞ではなく事実だ。ただそこにいるだけで周囲が明るくなる。「見られたい」という気持ちの奥には「認めてほしい」という切実な願いがある。それは弱さではなく、この魂の燃料だ。",
+    shadow:"承認欲求が強いと自分でわかっているから、余計に出しにくくなる（見捨ての傷）。「こんなに頑張っているのに認められない」という痛みを、ひとりで抱えることが多い。本当は一人でいいから、ただ「見てくれている」と感じたい。",
+    rx:"今週、自分が楽しいと思うことを「誰かのため」ではなく「自分のため」に一つやる。輝く理由が「認めてもらうため」から「自分が好きだから」に変わる日が、このジョブの転換点だ。",
+    ts:["表現力","感性","情熱","存在感"],c:"#ec4899",cl:"#fce7f3",cs:"#db2777",tb:"rgba(236,72,153,.1)",tc:"#9d174d"
+  },
+  strategist:{
+    n:"軍師",e:"🗺️",
+    t:"10手先を読む戦略家。勝ち筋はもう見えている",
+    d:"常に全体像を把握し、最適な動きを計算している。長期的な戦略立案力とリスクを事前に察知する先読み力が最大の武器だ。誰もが目先の問題に追われている時、このジョブだけが3ヶ月後・1年後を見ている。「布石を打つ」ことに密かな喜びを感じる設計だ。",
+    shadow:"感情を論理で処理しようとするため「冷たい」と思われやすい（裏切りの傷）。本当は深く感じているのに、それを表に出すことへの強い抵抗がある。感情を「弱さ」と捉えているが、感情こそが戦略に深みを与えるものだ。",
+    rx:"今週、誰かに「正しいことを言う」より先に「気持ちを聞く」を一度試す。感情を戦略の一部に組み込むと、このジョブは真の意味で最強になる。",
+    ts:["戦略","先読み","冷静","全体像"],c:"#6366f1",cl:"#e0e7ff",cs:"#4338ca",tb:"rgba(99,102,241,.1)",tc:"#3730a3"
+  },
+  scholar:{
+    n:"学者",e:"📚",
+    t:"「なぜ？」が止まらない探求者。知識量が半端ない",
+    d:"圧倒的な情報収集・分析力と、論理的で正確なコミュニケーションが強み。一つのテーマを誰よりも深く掘れる。「完璧に理解してから動く」というプロセスがエンジンだ。それは慎重さではなく、「正確さへの誠実さ」だ。一度動いたら最強になる設計をしている。",
+    shadow:"完璧に理解してから動こうとするあまり、タイミングを逃すことが多い（拒絶の傷）。「まだ準備が足りない」という声が常に聞こえている。その声は自己防衛であり、本当は「失敗したくない」という恐れが根っこにある。",
+    rx:"今週、80%理解できたら動く、と決める。残りの20%は動きながら学べる。「完璧を待つ」より「動きながら完璧に近づく」がこのジョブの次の段階だ。",
+    ts:["分析力","探求心","正確さ","持続力"],c:"#3b82f6",cl:"#dbeafe",cs:"#2563eb",tb:"rgba(59,130,246,.1)",tc:"#1d4ed8"
+  },
+  ninja:{
+    n:"忍者",e:"🌑",
+    t:"全部わかってるけど、あえて言わない。静かなる観察者",
+    d:"誰よりも場の空気を読んでいる。状況判断の速さと秘密を守る圧倒的な信頼性が強みだ。初対面では本音をほとんど出さないが、信頼した相手には全部話せる。この「信頼の重さ」は他のジョブには持てない深さだ。沈黙は弱さではない——静けさの中に研ぎ澄まされた刃がある。",
+    shadow:"信頼した人に裏切られた時のダメージが特に大きい（裏切りの傷）。だから最初から深く関わらないという防衛が働く。でもその壁が、本当に欲しいつながりを遠ざけている。「言わなくてもわかるはず」が積み重なる孤独に気づいてほしい。",
+    rx:"今週、ずっと気になっていたことを一言だけ言葉にして誰かに届ける。「実は」という二文字が、あなたの世界を変える最初の一歩になる。",
+    ts:["観察力","信頼性","洞察","沈黙の力"],c:"#374151",cl:"#f3f4f6",cs:"#1f2937",tb:"rgba(55,65,81,.1)",tc:"#374151"
+  },
+  archer:{
+    n:"アーチャー",e:"🏹",
+    t:"自由を愛する一匹狼。的を定めたら外さない",
+    d:"縛られることが苦手で、自分でルールを作り自分で守る自律性が最大の武器だ。的が定まると驚くほど集中力が上がる。強制されるとやる気が消えるが、自分で選んだことには全力を注ぐ。この「自律のエンジン」こそが、このジョブを最強にする設計だ。",
+    shadow:"「縛られることへの恐れ」が強く、深い関係や長期のコミットメントを避けることがある（屈辱の傷）。頼ることを弱さと感じ、一人で全てをこなそうとする。でも本当は「信頼できる仲間に囲まれたい」という願いが奥にある。",
+    rx:"今週、誰かに一つだけ頼ってみる。「助けてもらう」ことは弱さではなく、信頼関係を育てる行為だ。一人で矢を放ち続けるより、共に的を狙う仲間がいる方が遠くまで届く。",
+    ts:["集中力","自己管理","自律","精度"],c:"#0ea5e9",cl:"#e0f2fe",cs:"#0284c7",tb:"rgba(14,165,233,.1)",tc:"#0284c7"
+  },
+  merchant:{
+    n:"商人",e:"💰",
+    t:"チャンスを嗅ぎつける天才。縁がお金に変わる",
+    d:"人が好きで、人を喜ばせることが得意。自然と人脈が広がり、トレンドを読む先見性とピンチをビジネスに変える発想力が強みだ。初対面の人でも5分で打ち解けられる社交性は、このジョブだけの特殊能力だ。「縁を紡ぐ」ことがこの魂の本質的な喜びである。",
+    shadow:"損得勘定と純粋な善意が混在して自己嫌悪になることがある（見捨ての傷）。「本当の友達が誰かわからない」という空虚感も。広さと深さのジレンマの中で、「誰も本当の自分を知らない」という孤独を感じることがある。",
+    rx:"今週、計算なしに誰かのために動く瞬間を一つ作る。「この人に何かしてあげたい」という純粋な気持ちで動いた時、このジョブは最大の輝きを放つ。",
+    ts:["交渉力","先見性","人脈","共感力"],c:"#ca8a04",cl:"#fef9c3",cs:"#92400e",tb:"rgba(202,138,4,.12)",tc:"#92400e"
+  },
+  alchemist:{
+    n:"錬金術師",e:"⚗️",
+    t:"ゼロからイチを生む創造者。発想が次元を超える",
+    d:"「問題」を「面白い課題」に変換するスイッチが常にONになっている。ピンチをチャンスに変える発想力と失敗を恐れない実験精神が強みだ。誰も見たことのないものを作り出す喜びを知っている。「失敗」という概念がなく、あるのは「次の実験のデータ」だけだ。",
+    shadow:"一つを完成させる前に次のアイデアへ行ってしまう散漫さがある（不正の傷）。「やりかけのもの」が積み上がり、「自分は何も完成できない人間だ」という自己批判につながることも。完成させることへの執着の薄さが、最大の強みであり課題だ。",
+    rx:"今週、新しいことを始める前に一つ完成させる、というルールを課す。「完成の体験」を積み重ねることが、このジョブの次の段階への扉を開く。",
+    ts:["創造性","実験精神","変換力","発想"],c:"#f97316",cl:"#ffedd5",cs:"#ea580c",tb:"rgba(249,115,22,.1)",tc:"#c2410c"
+  }
 };
 
+// ===== 属性データ（4元素 × NLP生理学マップ統合）=====
 const ELEMS={
-  fire:{n:"火",icon:"🔥",label:"🔥 火属性（FIRE）",desc:"直感と情熱で動く開拓者タイプ。スピードとリスクテイクを恐れず、周囲に火をつけるリーダーシップがある。ゼロから一を生み出す力が武器。（牡羊座・獅子座・射手座）",color:"#ef4444",bg:"#fee2e2"},
-  earth:{n:"地",icon:"🌍",label:"🌍 地属性（EARTH）",desc:"現実を形にする具現化タイプ。計画性・継続力・コスト管理など着実に成果を積み上げる。理想を地に足のついた形に落とし込む力がある。（牡牛座・乙女座・山羊座）",color:"#10b981",bg:"#d1fae5"},
-  air:{n:"風",icon:"💨",label:"💨 風属性（AIR）",desc:"論理と情報で動く効率化タイプ。人脈・知識・テクノロジーを使いこなしてスマートに課題を解決する。情報を循環させる力が武器。（双子座・天秤座・水瓶座）",color:"#0ea5e9",bg:"#e0f2fe"},
-  water:{n:"水",icon:"💧",label:"💧 水属性（WATER）",desc:"感情と共感で動く結合タイプ。チームの絆を深め、メンタルケアやユーザー心理の理解が得意。共感をベースにした価値創造が武器。（蟹座・蠍座・魚座）",color:"#6366f1",bg:"#e0e7ff"}
+  fire:{
+    n:"火",label:"🔥 火属性（FIRE）",
+    desc:"直感と情熱で動く開拓者タイプ。NLPの「火の状態」——モチベーション・興奮・行動力——が自然な状態だ。スピードとリスクテイクを恐れず、周囲に火をつけるリーダーシップがある。牡羊座・獅子座・射手座。",
+    color:"#ef4444",bg:"#fee2e2"
+  },
+  earth:{
+    n:"地",label:"🌍 地属性（EARTH）",
+    desc:"現実を形にする具現化タイプ。計画性・継続力・着実な積み上げが得意で、理想を地に足のついた形に落とし込む力がある。NLPの「土の状態」——安堵・連帯・リラックス——が力を引き出す。牡牛座・乙女座・山羊座。",
+    color:"#10b981",bg:"#d1fae5"
+  },
+  air:{
+    n:"風",label:"💨 風属性（AIR）",
+    desc:"論理と情報で動く効率化タイプ。人脈・知識・テクノロジーを使いこなしてスマートに課題を解決する。NLPの「風の状態」——平穏・受け身・スピリチュアル——が深い洞察を生む。双子座・天秤座・水瓶座。",
+    color:"#0ea5e9",bg:"#e0f2fe"
+  },
+  water:{
+    n:"水",label:"💧 水属性（WATER）",
+    desc:"感情と共感で動く結合タイプ。チームの絆を深め、人の心理を深く理解する。NLPの「水の状態」——洞察・感受性——を建設的な「火」に変える時、このタイプは最大の力を発揮する。蟹座・蠍座・魚座。",
+    color:"#6366f1",bg:"#e0e7ff"
+  }
 };
 
+// ===== 40パターン キャッチコピー =====
 const CATCH={
   king:{fire:"未来を切り拓く「進撃の指導者」",earth:"盤石な基盤を築く「不倒の統治者」",air:"変革の風を呼ぶ「革新のリーダー」",water:"民の心に寄り添う「慈愛の聖王」"},
   miko:{fire:"祈りを情熱に変える「鼓舞の預言者」",earth:"伝統を形にする「守護の媒介者」",air:"時代の流れを読み解く「伝承の語り部」",water:"魂を癒やし繋ぐ「至高のヒーラー」"},
   hero:{fire:"最前線で光を放つ「不屈の開拓者」",earth:"難攻不落の任務を完遂する「鋼の勇士」",air:"変幻自在に戦場を駆ける「疾風の英雄」",water:"仲間の絆を力に変える「共鳴の騎士」"},
-  dancer:{fire:"魂を揺さぶる「情熱のパフォーマー」",earth:"一分の隙もない美を体現する「完璧の表現者」",air:"トレンドを自在に操る「時代の寵児」",water:"深層心理に入り込む「魅惑の表現者」"},
+  dancer:{fire:"魂を揺さぶる「情熱のパフォーマー」",earth:"完璧な美を体現する「至高の表現者」",air:"トレンドを自在に操る「時代の寵児」",water:"深層心理に入り込む「魅惑の表現者」"},
   strategist:{fire:"勝利を確信させる「勝利の演出家」",earth:"一分のミスも許さない「鉄壁の参謀」",air:"数手先を予測し最適化する「論理の賢者」",water:"士気を掌握し勝利へ導く「人心の掌握術師」"},
   scholar:{fire:"未知の理論を追求する「探求の冒険家」",earth:"膨大なデータを資産に変える「知識の蔵相」",air:"複雑な事象をシンプルに説く「情報の翻訳者」",water:"人の成長を深く支える「叡智の教育者」"},
-  ninja:{fire:"電光石火で急所を突く「刹那の実行者」",earth:"隠密に任務を完遂する「確実なる影」",air:"情報の海を自在に泳ぐ「インテリジェンス・スパイ」",water:"相手の懐に入り込む「潜入の達人」"},
-  archer:{fire:"狙った獲物を逃さない「一撃の狙撃手」",earth:"静寂の中で真実を射抜く「至高の職人」",air:"遠距離から戦局を操作する「広域の監視者」",water:"感情の動きを見極め射止める「心理の射手」"},
+  ninja:{fire:"電光石火で急所を突く「刹那の実行者」",earth:"隠密に任務を完遂する「確実なる影」",air:"情報の海を自在に泳ぐ「インテリジェンス・エージェント」",water:"相手の懐に入り込む「潜入の達人」"},
+  archer:{fire:"狙った獲物を逃さない「一撃の狙撃手」",earth:"静寂の中で真実を射抜く「至高の職人」",air:"遠距離から戦局を操作する「広域の観測者」",water:"感情の動きを見極め射止める「心理の射手」"},
   merchant:{fire:"世界を股にかける「野心の貿易商」",earth:"富の連鎖を構築する「盤石の資産家」",air:"価値のギャップを見抜く「情報の仲介者」",water:"信頼を最大の資本とする「人脈の商い人」"},
   alchemist:{fire:"常識を打ち破る「革命の創造主」",earth:"無から有を形にする「具現化の魔術師」",air:"複数の知恵を融合させる「情報の調合師」",water:"願いを現実に変える「奇跡の具現者」"}
 };
 
-// 生まれ年 % 10 → ジョブ（十干ベース）
+// 十干マッピング（生まれ年 % 10）
 const YJ={0:'ninja',1:'archer',2:'merchant',3:'alchemist',4:'king',5:'miko',6:'hero',7:'dancer',8:'strategist',9:'scholar'};
 
-// 生まれ月・日 → 星座属性
+// 星座 → 属性
 function getElem(m,d){
   if((m==3&&d>=21)||(m==4&&d<=19))return'fire';
   if((m==4&&d>=20)||(m==5&&d<=20))return'earth';
@@ -187,7 +284,9 @@ function go(){
   const eb=document.getElementById('eb');
   eb.textContent=el.label; eb.style.background=el.bg; eb.style.color=el.color;
   const ri=document.getElementById('ri');
-  ri.src='images/'+j.n+'.png'; ri.alt=j.n; ri.style.display='block';
+  ri.src='images/'+j.n+'.png'; ri.alt=j.n;
+  ri.onload=function(){this.style.display='block';document.getElementById('re').style.display='none';};
+  ri.onerror=function(){this.style.display='none';document.getElementById('re').style.display='block';};
   document.getElementById('re').textContent=j.e;
   document.getElementById('re').style.display='none';
   document.getElementById('rn').textContent=fullName;
@@ -198,6 +297,8 @@ function go(){
   document.getElementById('rh').style.background=j.cl;
   document.getElementById('rd').textContent=j.d;
   document.getElementById('edesc').textContent=el.desc;
+  document.getElementById('shadow').innerHTML='<strong>🌑 シャドー（影）</strong><br>'+j.shadow;
+  document.getElementById('rx').innerHTML='<strong>💊 処方箋</strong><br>'+j.rx;
   const tr=document.getElementById('tr');
   tr.innerHTML='';
   j.ts.forEach(t=>{const s=document.createElement('span');s.className='trait';s.textContent='# '+t;s.style.background=j.tb;s.style.color=j.tc;tr.appendChild(s);});
