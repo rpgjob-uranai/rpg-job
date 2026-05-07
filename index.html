@@ -302,7 +302,8 @@ function go(){
   document.getElementById('rh').style.background=j.cl;
   document.getElementById('rd').textContent=j.d;
   document.getElementById('edesc').textContent=el.desc;
-  document.getElementById('shadow').innerHTML=+j.shadow;
+  document.getElementById('shadow').innerHTML='<strong></strong>'+j.shadow;
+
   const tr=document.getElementById('tr');
   tr.innerHTML='';
   j.ts.forEach(t=>{const s=document.createElement('span');s.className='trait';s.textContent='# '+t;s.style.background=j.tb;s.style.color=j.tc;tr.appendChild(s);});
