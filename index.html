@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-K61VHEC1LB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-K61VHEC1LB');
-</script> 
 <link rel="icon" href="fa.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +18,9 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
 .wrap{position:relative;z-index:1;max-width:500px;margin:0 auto;padding:40px 18px 80px}
 .hdr{text-align:center;margin-bottom:28px}
 .badge{display:inline-flex;align-items:center;gap:5px;background:var(--purple);color:#fff;font-size:10px;font-weight:800;letter-spacing:.12em;padding:5px 16px;border-radius:20px;margin-bottom:16px}
-.hdr h1{font-size:clamp(28px,7vw,42px);font-weight:800;line-height:1.15;margin-bottom:10px}
-.hdr h1 em{color:var(--purple);font-style:normal}
+.hdr h1{margin-bottom:10px;line-height:1}
+.logo-svg{width:min(340px,88vw);height:auto;display:block;margin:0 auto}
+
 .sparks{display:flex;justify-content:center;gap:6px;margin:12px 0;font-size:20px}
 .hdr p{font-size:14px;color:var(--text-m);font-weight:500;line-height:1.7}
 .card{background:var(--white);border-radius:var(--r);padding:26px 22px;margin-bottom:14px;border:2.5px solid #c4b5fd;box-shadow:0 4px 0 #c4b5fd}
@@ -46,6 +38,9 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
 .res-card{background:var(--white);border-radius:var(--r);padding:30px 22px 26px;margin-bottom:14px;text-align:center;border:2.5px solid;box-shadow:0 5px 0}
 .res-lbl{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.14em;padding:4px 14px;border-radius:20px;margin-bottom:10px}
 .elem-badge{display:inline-block;font-size:12px;font-weight:800;padding:5px 16px;border-radius:20px;margin-bottom:14px}
+.res-title{margin:0 auto 14px;text-align:center;line-height:1.2}
+.res-title .rt1{display:block;font-size:clamp(26px,7vw,38px);font-weight:900;color:var(--text);letter-spacing:.03em}
+.res-title .rt2{display:block;font-size:clamp(26px,7vw,38px);font-weight:900;color:var(--purple);letter-spacing:.03em}
 .res-chara{width:240px;height:240px;object-fit:contain;margin:0 auto 12px;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,.15))}
 .res-chara-fallback{font-size:72px;display:block;margin:0 auto 12px;line-height:1}
 .res-nm{font-size:32px;font-weight:800;margin-bottom:6px;letter-spacing:-.01em}
@@ -72,7 +67,7 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
   .wrap{padding:28px 12px 60px}
   .fg{grid-template-columns:1fr 1fr}
   .fg .fgr:first-child{grid-column:1/-1}
-  .res-chara{width:130px;height:130px} .res-nm{font-size:26px}
+  .res-chara{width:195px;height:195px} .res-nm{font-size:26px}
 }
 </style>
 </head>
@@ -81,7 +76,7 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
 <div class="wrap">
   <div class="hdr">
     <div class="badge">✨ RPG JOB FORTUNE ✨</div>
-    <h1>RPGジョブ<br><em>占い</em></h1>
+    <h1><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" role="img" aria-label="RPGジョブ占い"><defs><radialGradient id="lg1" cx="55" cy="55" r="52" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8b5cf6" stop-opacity=".3"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient><filter id="lglow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="tglow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2" result="b"/><feFlood flood-color="#8b5cf6" flood-opacity="0.08" result="color"/><feComposite in="color" in2="b" operator="in" result="shadow"/><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="divL" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8b5cf6" stop-opacity="0"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></linearGradient></defs><g transform="translate(2,5)"><circle cx="55" cy="55" r="52" fill="url(#lg1)"/><circle cx="55" cy="55" r="51" fill="none" stroke="#8b5cf6" stroke-width="1.2" stroke-dasharray="4 3" opacity=".7" filter="url(#lglow)"/><circle cx="55" cy="55" r="40" fill="none" stroke="#a78bfa" stroke-width=".8" opacity=".5"/><polygon points="55,18 67,39 90,39 72,52 80,73 55,60 30,73 38,52 20,39 43,39" fill="none" stroke="#c4b5fd" stroke-width="1" opacity=".6" filter="url(#lglow)"/><circle cx="55" cy="55" r="14" fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity=".9" filter="url(#lglow)"/><circle cx="55" cy="55" r="6" fill="#a78bfa" opacity=".9" filter="url(#lglow)"/><circle cx="55" cy="4" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="88" cy="22" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="104" cy="55" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="88" cy="88" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="55" cy="104" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="22" cy="88" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="6" cy="55" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="22" cy="22" r="2.5" fill="#c4b5fd" opacity=".9"/><circle cx="75" cy="10" r="2" fill="#8b5cf6" opacity=".7"/><circle cx="35" cy="10" r="2" fill="#8b5cf6" opacity=".7"/></g><g transform="translate(122,10)"><rect x="0" y="36" width="228" height="1" fill="url(#divL)"/><text x="0" y="30" font-family="Georgia,serif" font-size="9" font-weight="bold" letter-spacing="3.5" fill="#8b5cf6" opacity=".9">DESTINY BY BIRTH · AI POWERED</text><text x="0" y="85" font-family="'M PLUS Rounded 1c','Hiragino Kaku Gothic Pro',sans-serif" font-size="46" font-weight="900" fill="#ffffff" filter="url(#tglow)">RPG</text><text x="92" y="85" font-family="'M PLUS Rounded 1c','Hiragino Kaku Gothic Pro',sans-serif" font-size="46" font-weight="900" fill="#a78bfa" filter="url(#tglow)">ジョブ</text><text x="198" y="85" font-family="'M PLUS Rounded 1c','Hiragino Kaku Gothic Pro',sans-serif" font-size="46" font-weight="900" fill="#ffffff" filter="url(#tglow)">占い</text><rect x="0" y="95" width="228" height="1" fill="url(#divL)"/></g></svg></h1>
     <div class="sparks">⚔️ 🔮 👑 💃 🧚</div>
     <p>生年月日から、あなたの魂の設計図がわかる。<br>占いを超えた「自己理解の体験」へ。</p>
   </div>
@@ -99,7 +94,7 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
     <div class="res-card" id="rc">
       <div class="res-lbl" id="rl">YOUR JOB IS...</div>
       <div class="elem-badge" id="eb"></div>
-     <div class="res-title"><span class="rt1">RPGジョブ</span><span class="rt2">占い</span></div>
+      <div class="res-title"><span class="rt1">RPGジョブ</span><span class="rt2">占い</span></div>
       <img class="res-chara" id="ri" src="" alt="" style="display:none" onerror="this.style.display='none';document.getElementById('re').style.display='block'">
       <span class="res-chara-fallback" id="re" style="display:none"></span>
       <div class="res-nm" id="rn"></div>
@@ -130,7 +125,7 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
       </div>
     </div>
   </div>
-  <div class="foot">これはあなたの「魂の設計図」✨<br>占いを超えた、自己理解の定期体験をお届け。</div>
+  <div class="foot">あなたのジョブは生まれた日に刻まれた「魂の設計図」✨<br>「なぜ私はこうなんだろう」が「私はこういう設計だから」に変わる体験を。</div>
 </div>
 <script>
 // ===== ジョブデータ v2.0（NLP/心理学理論統合）=====
