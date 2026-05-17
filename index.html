@@ -72,6 +72,11 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
   .fg .fgr:first-child{grid-column:1/-1}
   .res-chara{width:195px;height:195px} .res-nm{font-size:26px}
 }
+ .share-btns{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.btn-share{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 8px;border-radius:13px;font-family:'M PLUS Rounded 1c',sans-serif;font-size:13px;font-weight:800;border:none;cursor:pointer;color:#fff;letter-spacing:.02em}
+.btn-share.x{background:#000}
+.btn-share.tt{background:#010101;border:1.5px solid #333}
+.btn-share.ig{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)} 
 </style>
 </head>
 <body>
@@ -125,6 +130,11 @@ body{background:var(--bg);color:var(--text);font-family:'M PLUS Rounded 1c',sans
       
       <div class="traits" id="tr"></div>
       <div class="cta">
+        <div class="share-btns">
+    <button class="btn-share x" onclick="shareX()">𝕏 シェア</button>
+    <button class="btn-share tt" onclick="shareNative()">♪ TikTok</button>
+    <button class="btn-share ig" onclick="shareNative()">📸 Instagram</button>
+  </div>
         <p>97,509件の性格診断データをAIで分析<br>あなたの心の成長を加速させるマガジン公開中！</p>
         <a class="btn-n" href="https://note.com/yuki041493" target="_blank">📖 noteを読む</a>
         <button class="btn-r" onclick="rst()">🔄 もう一度診断する</button>
@@ -313,6 +323,24 @@ function rst(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+  function shareX() {
+  const job = document.querySelector('.res-nm')?.textContent || 'RPGジョブ';
+  const text = `私のRPGジョブは「${job}」でした！⚔️\n生年月日から分かるRPGジョブ診断🔮\n`;
+  const url = 'https://rpgjob-uranai.github.io/rpg-job/';
+  window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank');
+}
+
+async function shareNative() {
+  const job = document.querySelector('.res-nm')?.textContent || 'RPGジョブ';
+  const text = `私のRPGジョブは「${job}」でした！⚔️\nRPGジョブ診断で調べてみて🔮`;
+  const url = 'https://rpgjob-uranai.github.io/rpg-job/';
+  if (navigator.share) {
+    await navigator.share({ title: 'RPGジョブ診断', text: text + '\n' + url });
+  } else {
+    await navigator.clipboard.writeText(text + '\n' + url);
+    alert('コピーしました！TikTok / Instagramに貼り付けてね📋');
+  }
+}
 // ロゴ画像を埋め込みで設定（base64 placeholder - will be set by script）
 const LOGO_SRC = document.currentScript.getAttribute('data-logo');
 if(LOGO_SRC){
